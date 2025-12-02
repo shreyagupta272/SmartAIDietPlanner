@@ -1,0 +1,166 @@
+/* src/app/pages/plan-builder/plan-builder.component.css */
+.page-container {
+    min-height: 100vh;
+    background: #f5f7fb;
+    padding: 24px;
+}
+
+#planContent,
+.page-container>div {
+    background: #ffffff;
+}
+
+
+.header {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px 24px;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.subtitle {
+    margin: 4px 0 0 0;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.subtitle.small {
+    font-size: 12px;
+}
+
+.outline-btn {
+    border-radius: 999px;
+    border: 1px solid #6366f1;
+    padding: 8px 16px;
+    background: #eef2ff;
+    color: #4f46e5;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.outline-btn:hover {
+    background: #e0e7ff;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1.1fr 1.7fr;
+    gap: 24px;
+}
+
+.info-panel,
+.plan-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card,
+.day-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.card h2,
+.day-card h2 {
+    margin-top: 0;
+    font-size: 16px;
+}
+
+.bullet-list {
+    padding-left: 18px;
+    margin: 8px 0 0 0;
+    color: #4b5563;
+    font-size: 14px;
+}
+
+.notes-text {
+    margin: 8px 0 0 0;
+    font-size: 14px;
+    color: #4b5563;
+}
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.day-subtitle {
+    margin: 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.meal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.meal-card {
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    padding: 10px 12px;
+    background: #f9fafb;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.meal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.meal-card h3 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.time-input {
+    flex: 0 0 130px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+.time-input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2);
+}
+
+.items-textarea {
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    padding: 8px 10px;
+    font-size: 13px;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.items-textarea:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2);
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
+}

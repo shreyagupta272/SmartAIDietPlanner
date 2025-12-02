@@ -1,0 +1,49 @@
+<div class="page-container">
+    <div class="card">
+        <h1>Client Details</h1>
+        <p class="subtitle">
+            Enter your client's basic information to start planning their meals.
+        </p>
+
+        <form #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)" class="form-grid">
+
+            <div class="form-field">
+                <label for="name">Client Name *</label>
+                <input id="name" type="text" name="name" [(ngModel)]="client.name" required />
+            </div>
+
+            <div class="form-field">
+                <label for="age">Age</label>
+                <input id="age" type="number" name="age" [(ngModel)]="client.age" min="1" />
+            </div>
+
+            <div class="form-field">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" [(ngModel)]="client.gender">
+                    <option value="">Select</option>
+                    <option>Female</option>
+                    <option>Male</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label for="goal">Primary Goal</label>
+                <input id="goal" type="text" name="goal" [(ngModel)]="client.goal"
+                    placeholder="Fat loss, muscle gain, maintenance..." />
+            </div>
+
+            <div class="form-field full-width">
+                <label for="activityLevel">Activity Level</label>
+                <input id="activityLevel" type="text" name="activityLevel" [(ngModel)]="client.activityLevel"
+                    placeholder="Sedentary, moderately active, very active..." />
+            </div>
+
+            <div class="actions">
+                <button type="submit" [disabled]="clientForm.invalid">
+                    Start Planning Meals
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
