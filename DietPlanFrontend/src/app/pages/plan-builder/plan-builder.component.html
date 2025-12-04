@@ -1,77 +1,76 @@
 <div class="page-container" *ngIf="client as c">
-    <div #planContent>
-        <!-- Header with client info + actions -->
-        <header class="header">
-            <div>
-                <h1>Meal Plan for {{ c.name }}</h1>
-                <p class="subtitle">
-                    {{ c.age || 'Age N/A' }} yrs
-                    · {{ c.gender || 'Gender N/A' }}
-                    · Goal: {{ c.goal || 'Not specified' }}
-                </p>
-                <p class="subtitle small">
-                    Activity: {{ c.activityLevel || 'Not specified' }}
+    <!-- Header with client info + actions -->
+    <header class="header">
+        <div>
+            <h1>Meal Plan for {{ c.name }}</h1>
+            <p class="subtitle">
+                {{ c.age || 'Age N/A' }} yrs
+                · {{ c.gender || 'Gender N/A' }}
+                · Goal: {{ c.goal || 'Not specified' }}
+            </p>
+            <p class="subtitle small">
+                Activity: {{ c.activityLevel || 'Not specified' }}
+            </p>
+        </div>
+        <div class="header-actions">
+            <button class="outline-btn" (click)="addDay()">
+                + Add Day
+            </button>
+            <button class="outline-btn" (click)="generateWithAi()">
+                Generate with AI
+            </button>
+            <button class="primary-btn" (click)="goToPreview()">
+                Preview & Download PDF
+            </button>
+        </div>
+
+    </header>
+
+    <!-- Main layout: left info panel, right plan panel -->
+    <main class="content">
+        <!-- Left side: info / notes -->
+        <section class="info-panel">
+            <div class="card">
+                <h2>Plan Overview</h2>
+                <ul class="bullet-list">
+                    <li>Use the cards on the right to fill meals for each day.</li>
+                    <li>You can add more days using the “Add Day” button.</li>
+                    <li>The PDF will include this layout and all the meals.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>Coach Notes (optional)</h2>
+                <p class="notes-text">
+                    You can include general guidance here, like water intake,
+                    activity recommendations, or special reminders for the client.
                 </p>
             </div>
-            <div class="header-actions">
-                <button class="outline-btn" (click)="addDay()">
-                    + Add Day
-                </button>
-                <button class="outline-btn" (click)="generateWithAi()">
-                    Generate with AI
-                </button>
-                <button class="primary-btn" (click)="downloadPdf()">
-                    Download PDF
-                </button>
+        </section>
+
+        <!-- Right side: day-wise plan with meal cards -->
+        <section class="plan-panel">
+            <div class="day-card" *ngFor="let day of dayPlans; trackBy: trackByDayId">
+                <div class="day-header">
+                    <div>
+                        <h2>{{ day.name }}</h2>
+                        <p class="day-subtitle">{{ day.subtitle }}</p>
+                    </div>
+                </div>
+
+                <div class="meal-grid">
+                    <div class="meal-card" *ngFor="let meal of day.meals">
+                        <div class="meal-header">
+                            <h3>{{ meal.type }}</h3>
+                            <input type="text" class="time-input" placeholder="Time (e.g. 8:00 AM)"
+                                [(ngModel)]="meal.time" />
+                        </div>
+
+                        <textarea class="items-textarea" rows="4" placeholder="Enter meal items, one per line"
+                            [(ngModel)]="meal.items"></textarea>
+                    </div>
+                </div>
             </div>
-        </header>
-
-        <!-- Main layout: left info panel, right plan panel -->
-        <main class="content">
-            <!-- Left side: info / notes -->
-            <section class="info-panel">
-                <div class="card">
-                    <h2>Plan Overview</h2>
-                    <ul class="bullet-list">
-                        <li>Use the cards on the right to fill meals for each day.</li>
-                        <li>You can add more days using the “Add Day” button.</li>
-                        <li>The PDF will include this layout and all the meals.</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h2>Coach Notes (optional)</h2>
-                    <p class="notes-text">
-                        You can include general guidance here, like water intake,
-                        activity recommendations, or special reminders for the client.
-                    </p>
-                </div>
-            </section>
-
-            <!-- Right side: day-wise plan with meal cards -->
-            <section class="plan-panel">
-                <div class="day-card" *ngFor="let day of dayPlans; trackBy: trackByDayId">
-                    <div class="day-header">
-                        <div>
-                            <h2>{{ day.name }}</h2>
-                            <p class="day-subtitle">{{ day.subtitle }}</p>
-                        </div>
-                    </div>
-
-                    <div class="meal-grid">
-                        <div class="meal-card" *ngFor="let meal of day.meals">
-                            <div class="meal-header">
-                                <h3>{{ meal.type }}</h3>
-                                <input type="text" class="time-input" placeholder="Time (e.g. 8:00 AM)"
-                                    [(ngModel)]="meal.time" />
-                            </div>
-
-                            <textarea class="items-textarea" rows="4" placeholder="Enter meal items, one per line"
-                                [(ngModel)]="meal.items"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+        </section>
+    </main>
 </div>

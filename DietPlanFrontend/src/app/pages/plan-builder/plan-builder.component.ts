@@ -98,23 +98,6 @@ export class PlanBuilderComponent implements OnInit {
     return day.id;
   }
 
-  downloadPdf() {
-    if (!this.planContent) return;
-
-    const element = this.planContent.nativeElement;
-
-    const opt = {
-      margin: 10,
-      filename: `diet-plan-${this.client?.name || 'client'}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    // @ts-ignore
-    html2pdf().from(element).set(opt).save();
-  }
-
   splitLines(text: string): string[] {
     return text
       ? text.split('\n').filter(line => line.trim().length > 0)
@@ -141,7 +124,14 @@ export class PlanBuilderComponent implements OnInit {
         alert('Something went wrong while generating plan from AI.');
       }
     });
+
   }
 
-
+  goToPreview() {
+    if (!this.client) return;
+    this.planState.setDayPlans(this.dayPlans); // make sure latest changes are stored
+    this.router.navigate(['/preview']);
+  }
 }
+
+

@@ -17,10 +17,6 @@ public class AiController {
 
     private final AiPlanService aiPlanService;
 
-    public AiController(AiPlanService aiPlanService) {
-        this.aiPlanService = aiPlanService;
-    }
-
     @PostMapping("/generate-plan")
     public GeneratePlanResponse generatePlan(@RequestBody GeneratePlanRequest request) {
         List<DayPlan> plans = aiPlanService.generatePlan(request);
@@ -28,4 +24,5 @@ public class AiController {
         response.setDayPlans(plans);
         return response;
     }
+
 }

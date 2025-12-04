@@ -1,0 +1,211 @@
+.preview-page {
+    min-height: 100vh;
+    background: #e5e7eb;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.preview-toolbar {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.back-btn,
+.download-btn {
+    border-radius: 999px;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.back-btn {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.download-btn {
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    color: white;
+}
+
+.pdf-page {
+    max-width: 900px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.25);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Header */
+.pdf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.pdf-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pdf-logo-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.pdf-subtitle {
+    margin: 2px 0 0 0;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.pdf-client-meta p {
+    margin: 0;
+    font-size: 12px;
+    color: #4b5563;
+}
+
+/* Sections */
+.pdf-section {
+    margin-top: 14px;
+}
+
+.pdf-section h2 {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+}
+
+/* Summary table */
+.pdf-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.pdf-summary-table th,
+.pdf-summary-table td {
+    border: 1px solid #e5e7eb;
+    padding: 6px 8px;
+}
+
+.pdf-summary-table th {
+    background: #f9fafb;
+    text-align: left;
+    font-weight: 600;
+}
+
+/* Day / meal tables */
+.pdf-day-title {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+}
+
+.pdf-day-subtitle {
+    margin: 0 0 6px 0;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.pdf-meal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+}
+
+.pdf-meal-table th,
+.pdf-meal-table td {
+    border: 1px solid #e5e7eb;
+    padding: 6px 6px;
+    vertical-align: top;
+}
+
+.pdf-meal-table th {
+    background: #f3f4f6;
+    font-weight: 600;
+}
+
+.pdf-col-icon {
+    width: 40px;
+    text-align: center;
+}
+
+.pdf-col-meal {
+    width: 90px;
+}
+
+.pdf-col-time {
+    width: 70px;
+}
+
+.pdf-col-items {
+    width: auto;
+}
+
+.pdf-icon-cell {
+    text-align: center;
+}
+
+.pdf-meal-icon {
+    font-size: 18px;
+}
+
+.pdf-items-cell ul {
+    margin: 0;
+    padding-left: 14px;
+}
+
+.pdf-items-cell li {
+    margin: 0;
+}
+
+/* Footer */
+.pdf-footer {
+    border-top: 1px solid #e5e7eb;
+    margin-top: 12px;
+    padding-top: 8px;
+    font-size: 10.5px;
+    color: #6b7280;
+}
+
+.pdf-footer-brand {
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+/* Print tweaks */
+@media print {
+    .preview-toolbar {
+        display: none;
+    }
+
+    .preview-page {
+        background: #ffffff;
+        padding: 0;
+    }
+
+    .pdf-page {
+        max-width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+    }
+}

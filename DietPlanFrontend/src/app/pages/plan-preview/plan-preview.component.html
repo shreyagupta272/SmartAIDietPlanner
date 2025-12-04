@@ -1,0 +1,105 @@
+<div class="preview-page" *ngIf="client as c">
+    <!-- Top toolbar -->
+    <div class="preview-toolbar">
+        <button class="back-btn" (click)="backToEdit()">
+            ← Back to Edit
+        </button>
+        <button class="download-btn" (click)="downloadPdf()">
+            ⬇ Download PDF
+        </button>
+    </div>
+
+    <!-- Printable area -->
+    <div #pdfArea class="pdf-page">
+        <!-- Header -->
+        <header class="pdf-header">
+            <div class="pdf-brand">
+                <div class="pdf-logo-circle">DP</div>
+                <div>
+                    <h1>Sagar Dhanik Fitness Academy</h1>
+                    <p class="pdf-subtitle">
+                        Personalized meal plan for {{ c.name }}
+                    </p>
+                </div>
+            </div>
+            <div class="pdf-client-meta">
+                <p>{{ c.age || 'Age N/A' }} yrs · {{ c.gender || 'Gender N/A' }}</p>
+                <p>Goal: {{ c.goal || 'Not specified' }}</p>
+                <p>Activity: {{ c.activityLevel || 'Not specified' }}</p>
+            </div>
+        </header>
+
+        <!-- Client Summary -->
+        <section class="pdf-section">
+            <h2>Client Summary</h2>
+            <table class="pdf-summary-table">
+                <tr>
+                    <th>Name</th>
+                    <td>{{ c.name }}</td>
+                    <th>Age</th>
+                    <td>{{ c.age || 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>{{ c.gender || 'N/A' }}</td>
+                    <th>Goal</th>
+                    <td>{{ c.goal || 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <th>Activity Level</th>
+                    <td colspan="3">{{ c.activityLevel || 'N/A' }}</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Day-wise Tables -->
+        <section class="pdf-section" *ngFor="let day of dayPlans">
+            <h2 class="pdf-day-title">{{ day.name }}</h2>
+            <p class="pdf-day-subtitle">{{ day.subtitle }}</p>
+
+            <table class="pdf-meal-table">
+                <thead>
+                    <tr>
+                        <th class="pdf-col-icon">Icon</th>
+                        <th class="pdf-col-meal">Meal</th>
+                        <th class="pdf-col-time">Time</th>
+                        <th class="pdf-col-items">Items</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let meal of day.meals">
+                        <td class="pdf-icon-cell">
+                            <span class="pdf-meal-icon">
+                                {{ getMealIcon(meal.type) }}
+                            </span>
+                        </td>
+                        <td class="pdf-meal-cell">
+                            <strong>{{ meal.type }}</strong>
+                        </td>
+                        <td class="pdf-time-cell">
+                            {{ meal.time || '--' }}
+                        </td>
+                        <td class="pdf-items-cell">
+                            <ul>
+                                <li *ngFor="let line of splitLines(meal.items)">
+                                    {{ line }}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Footer -->
+        <footer class="pdf-footer">
+            <p>
+                🥄 Icons are visual guides for portions (bowls, plates, snacks).
+                Adjust as per hunger, medical conditions, and trainer guidance.
+            </p>
+            <p class="pdf-footer-brand">
+                Generated with ❤️ by your trainer
+            </p>
+        </footer>
+    </div>
+</div>
