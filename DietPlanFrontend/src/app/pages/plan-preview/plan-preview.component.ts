@@ -18,7 +18,7 @@ export class PlanPreviewComponent implements OnInit {
 
   client: ClientDetails | null = null;
   dayPlans: DayPlan[] = [];
-  coachNotes: string = ''; // if you want, we can also store this in PlanStateService later
+  coachNotes: string = '';
 
   constructor(
     private clientState: ClientStateService,
@@ -29,6 +29,7 @@ export class PlanPreviewComponent implements OnInit {
   ngOnInit(): void {
     this.client = this.clientState.getClientDetails();
     this.dayPlans = this.planState.getDayPlans();
+    this.coachNotes = this.planState.getCoachNotes();
 
     if (!this.client || !this.dayPlans || this.dayPlans.length === 0) {
       this.router.navigate(['/plan']);

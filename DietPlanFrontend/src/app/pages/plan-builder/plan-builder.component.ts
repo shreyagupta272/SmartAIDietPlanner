@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClientStateService, ClientDetails } from '../../services/client-state.service';
 import { PlanStateService } from '../../services/plan-state.service';
 import { DayPlan } from '../../models/plan.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import html2pdf from 'html2pdf.js';
 import { AiPlanService } from '../../services/ai-plan.service';
+import { RagCoachNotesService } from '../../services/rag-coach-notes.service';
 
 @Component({
   selector: 'app-plan-builder',
@@ -16,16 +16,18 @@ import { AiPlanService } from '../../services/ai-plan.service';
   styleUrls: ['./plan-builder.component.css']
 })
 export class PlanBuilderComponent implements OnInit {
-  @ViewChild('planContent') planContent!: ElementRef;
 
   client: ClientDetails | null = null;
   dayPlans: DayPlan[] = [];
+  coachNotes: string = '';
   private nextDayId = 2;
+  isGeneratingNotes = false;
 
   constructor(
     private clientState: ClientStateService,
     private planState: PlanStateService,
     private aiPlanService: AiPlanService,
+    private ragCoachNotesService: RagCoachNotesService,
     private router: Router
   ) { }
 
@@ -37,12 +39,16 @@ export class PlanBuilderComponent implements OnInit {
       return;
     }
 
+    // restore existing state if any
+    this.coachNotes = this.planState.getCoachNotes();
+
     if (this.planState.hasPlan()) {
       this.dayPlans = this.planState.getDayPlans();
       this.nextDayId = this.dayPlans.length + 1;
       return;
     }
 
+    // default day 1
     this.dayPlans = [
       {
         id: 1,
@@ -98,25 +104,18 @@ export class PlanBuilderComponent implements OnInit {
     return day.id;
   }
 
-  splitLines(text: string): string[] {
-    return text
-      ? text.split('\n').filter(line => line.trim().length > 0)
-      : [];
-  }
-
   generateWithAi() {
     if (!this.client) return;
 
     const req = {
       client: this.client,
       days: this.dayPlans.length || 1,
-      dietaryPreference: '' // can add UI later
+      dietaryPreference: ''
     };
 
     this.aiPlanService.generatePlan(req).subscribe({
       next: (res) => {
         this.dayPlans = res.dayPlans;
-        // also update PlanState so if you later navigate this is kept
         this.planState.setDayPlans(this.dayPlans);
       },
       error: (err) => {
@@ -124,14 +123,41 @@ export class PlanBuilderComponent implements OnInit {
         alert('Something went wrong while generating plan from AI.');
       }
     });
+  }
 
+  generateCoachNotesWithRag() {
+    if (!this.client || !this.dayPlans.length) return;
+
+    this.isGeneratingNotes = true;
+
+    const req = {
+      client: this.client,
+      dayPlans: this.dayPlans
+    };
+
+    this.ragCoachNotesService.generateCoachNotes(req).subscribe({
+      next: (res) => {
+        this.coachNotes = res.coachNotes || '';
+        this.planState.setCoachNotes(this.coachNotes);
+        this.isGeneratingNotes = false;
+      },
+      error: (err) => {
+        console.error('RAG coach notes failed', err);
+        alert('Could not generate coach notes right now.');
+        this.isGeneratingNotes = false;
+      }
+    });
+  }
+
+  onCoachNotesChange(value: string) {
+    this.coachNotes = value;
+    this.planState.setCoachNotes(this.coachNotes);
   }
 
   goToPreview() {
     if (!this.client) return;
-    this.planState.setDayPlans(this.dayPlans); // make sure latest changes are stored
+    this.planState.setDayPlans(this.dayPlans);
+    this.planState.setCoachNotes(this.coachNotes);
     this.router.navigate(['/preview']);
   }
 }
-
-

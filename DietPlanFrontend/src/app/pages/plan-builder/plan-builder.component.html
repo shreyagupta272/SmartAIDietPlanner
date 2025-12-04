@@ -45,7 +45,18 @@
                     You can include general guidance here, like water intake,
                     activity recommendations, or special reminders for the client.
                 </p>
+
+                <textarea class="coach-notes-textarea" rows="5" [(ngModel)]="coachNotes"
+                    (ngModelChange)="onCoachNotesChange($event)"
+                    placeholder="Example: Drink 3L water daily, 30 mins walk post dinner..."></textarea>
+
+                <div class="coach-notes-actions">
+                    <button class="outline-btn" (click)="generateCoachNotesWithRag()" [disabled]="isGeneratingNotes">
+                        {{ isGeneratingNotes ? 'Generating...' : 'Generate Coach Notes (RAG)' }}
+                    </button>
+                </div>
             </div>
+
         </section>
 
         <!-- Right side: day-wise plan with meal cards -->

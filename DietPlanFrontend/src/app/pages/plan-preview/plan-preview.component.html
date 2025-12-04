@@ -16,7 +16,7 @@
             <div class="pdf-brand">
                 <div class="pdf-logo-circle">DP</div>
                 <div>
-                    <h1>Sagar Dhanik Fitness Academy</h1>
+                    <h1>Fitness Academy</h1>
                     <p class="pdf-subtitle">
                         Personalized meal plan for {{ c.name }}
                     </p>
@@ -50,6 +50,15 @@
                     <td colspan="3">{{ c.activityLevel || 'N/A' }}</td>
                 </tr>
             </table>
+        </section>
+
+        <section class="pdf-section" *ngIf="coachNotes">
+            <h2>Coach Notes</h2>
+            <div class="pdf-notes-box">
+                <p *ngFor="let line of coachNotes.split('\n')">
+                    {{ line }}
+                </p>
+            </div>
         </section>
 
         <!-- Day-wise Tables -->

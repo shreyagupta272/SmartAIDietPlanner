@@ -164,3 +164,17 @@
         grid-template-columns: 1fr;
     }
 }
+
+.coach-notes-textarea {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    padding: 8px 10px;
+    font-size: 13px;
+    resize: vertical;
+    margin-top: 8px;
+}
+
+.coach-notes-actions {
+    margin-top: 8px;
+}

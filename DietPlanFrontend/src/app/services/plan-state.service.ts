@@ -6,13 +6,10 @@ import { DayPlan } from '../models/plan.model';
 })
 export class PlanStateService {
     private dayPlans: DayPlan[] = [];
+    private coachNotes: string = '';
 
     setDayPlans(plans: DayPlan[]) {
-        // store a copy so we don't accidentally mutate from outside
-        this.dayPlans = plans.map(p => ({
-            ...p,
-            meals: p.meals.map(m => ({ ...m }))
-        }));
+        this.dayPlans = plans;
     }
 
     getDayPlans(): DayPlan[] {
@@ -20,6 +17,19 @@ export class PlanStateService {
     }
 
     hasPlan(): boolean {
-        return this.dayPlans.length > 0;
+        return this.dayPlans && this.dayPlans.length > 0;
+    }
+
+    setCoachNotes(notes: string) {
+        this.coachNotes = notes || '';
+    }
+
+    getCoachNotes(): string {
+        return this.coachNotes;
+    }
+
+    clear() {
+        this.dayPlans = [];
+        this.coachNotes = '';
     }
 }
